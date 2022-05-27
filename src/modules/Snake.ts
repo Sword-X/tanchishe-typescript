@@ -31,11 +31,11 @@ class Snake{
         for (let index = 1; index < this.bodys.length-1; index++) {
             let element = this.bodys[index] as HTMLElement;
             if(value == element.offsetLeft && this.Y == element.offsetTop){
-                throw new Error("游戏结束！");
+                throw new Error("蛇撞到身体，游戏结束！");
             }
         }
         if(value < 0 || value > 290){
-            throw new Error("游戏结束！");
+            throw new Error("蛇撞墙，游戏结束！");
         }
         this.moveBodys();
         this.head.style.left = value +'px';
@@ -63,11 +63,11 @@ class Snake{
         for (let index = 1; index < this.bodys.length-1; index++) {
             let element = this.bodys[index] as HTMLElement;
             if(this.X == element.offsetLeft && value == element.offsetTop){
-                throw new Error("游戏结束！");
+                throw new Error("蛇撞到身体，游戏结束！");
             }
         }
         if(value < 0 || value > 290){
-            throw new Error("游戏结束！");
+            throw new Error("蛇撞墙，游戏结束！");
         }
         this.moveBodys();
         this.head.style.top = value +'px';
