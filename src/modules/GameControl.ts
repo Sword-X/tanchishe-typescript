@@ -32,41 +32,50 @@ class GameControl{
     }
 
     run(): void{
-        // if (this.direct.indexOf('Up') != -1) {
-        //     this.snake.Y = --this.snake.Y;
-        // }else if(this.direct.indexOf('Down') != -1){
-        //     this.snake.Y = ++this.snake.Y;
-        // }else if(this.direct.indexOf('Left') != -1){
-        //     this.snake.X = --this.snake.X;
-        // }else if(this.direct.indexOf('Right') != -1){
-        //     this.snake.X = ++this.snake.X;
-        // }
+        let X = this.snake.X;
+        let Y = this.snake.Y;
         switch (this.direct) {
             case 'ArrowUp':
             case 'Up':
-                this.snake.Y = this.snake.Y-10;
+                Y -= 10;
                 break;
             case 'ArrowDown':
             case 'Down':
-                this.snake.Y = this.snake.Y+10;
+                Y += 10;
                 break;
             case 'ArrowLeft':
             case 'Left':
-                this.snake.X = this.snake.X-10;
+                X -= 10;
                 break;
             case 'ArrowRight':
             case 'Right':
-                this.snake.X = this.snake.X+10;
+                X += 10;
                 break;
         }
+        this.checkEat(X,Y);
+        try {
+            this.snake.X = X;
+            this.snake.Y = Y;
+        } catch (e) {
+            alert((e as any).message);
+            this.isLive = false;
+        }
+        
         // 下面不会执行？
         this.isLive && setTimeout(this.run.bind(this), 300-(this.scorePanel.level -1) * 30);
         // setTimeout(() => {
         //     this.run.bind(this);
         // }, 300);
-
     
     }
+
+    checkEat(X: number,Y: number){
+        if(X == this.food.X && Y == this.food.Y){
+            this.food.change();
+            this.scorePanel.addScore();
+            this.snake.addBody();
+        }
+    }   
 
 }
 
